@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 
 /**
  * This class is used for ...
@@ -14,17 +15,19 @@ public class GUI extends JFrame {
 
     private Header headerProject;
     private JPanel juego;
-    private JButton dado1, dado2, dado3, dado4, dado5, dado6, dado7, dado8, dado9, dado10;
+    public JButton dado1, dado2, dado3, dado4, dado5, dado6, dado7, dado8, dado9, dado10;
     private ImageIcon imageDado;
     private ImageIcon imageAyuda;
-    private JPanel dadosActivos;
+    public JPanel dadosActivos;
     private JPanel puntaje;
-    private JPanel dadosInactivos;
-    private JPanel dadosUtilizados;
+    public JPanel dadosInactivos;
+    public JPanel dadosUtilizados;
     public JButton ayuda,lanzar;
     private Escucha escucha;
     private JSeparator c;
     private JPanel d1,d2,d3,d4,d5,d6,d7,d8,d9,d10;
+    private int flag, cara = 0 ;
+    private String accionado, cartaAplicar;
     private ModelGeekOutMaster modelGeekOutMaster;
 
     /**
@@ -56,38 +59,58 @@ public class GUI extends JFrame {
         headerProject = new Header("Geek Out! Masters", Color.BLACK);
 
         dado1 = new JButton("");
+        dado1.setName("dado1");
         imageDado = new ImageIcon(getClass().getResource("/resources/neutro.png"));
         dado1.setIcon(imageDado);
+        dado1.addActionListener(escucha);
 
         dado2 = new JButton("");
+        dado2.setName("dado2");
         dado2.setIcon(imageDado);
+        dado2.addActionListener(escucha);
 
         dado3 = new JButton("");
+        dado3.setName("dado3");
         dado3.setIcon(imageDado);
+        dado3.addActionListener(escucha);
 
         dado4 = new JButton("");
+        dado4.setName("dado4");
         dado4.setIcon(imageDado);
+        dado4.addActionListener(escucha);
 
         dado5 = new JButton("");
+        dado5.setName("dado5");
         dado5.setIcon(imageDado);
+        dado5.addActionListener(escucha);
 
         dado6 = new JButton("");
+        dado6.setName("dado6");
         dado6.setIcon(imageDado);
+        dado6.addActionListener(escucha);
 
         dado7 = new JButton("");
+        dado7.setName("dado7");
         dado7.setIcon(imageDado);
+        dado7.addActionListener(escucha);
 
         dado8 = new JButton("");
+        dado8.setName("dado8");
         dado8.setIcon(imageDado);
         dado8.setEnabled(false);
+        dado8.addActionListener(escucha);
 
         dado9 = new JButton("");
+        dado9.setName("dado9");
         dado9.setIcon(imageDado);
         dado9.setEnabled(false);
+        dado9.addActionListener(escucha);
 
         dado10 = new JButton("");
+        dado10.setName("dado10");
         dado10.setIcon(imageDado);
         dado10.setEnabled(false);
+        dado10.addActionListener(escucha);
 
         juego = new JPanel();
         juego.setPreferredSize(new Dimension(1000, 800));
@@ -179,6 +202,7 @@ public class GUI extends JFrame {
 
         ayuda = new JButton("?");
         ayuda.addActionListener(escucha);
+
         lanzar= new JButton("Lanzar");
         lanzar.addActionListener(escucha);
 
@@ -192,6 +216,7 @@ public class GUI extends JFrame {
         juego.add(ayuda);
         juego.add(lanzar);
         juego.add(c);
+        flag = 0;
     }
     private void switchLanzar(){
         lanzar.setEnabled(false);
@@ -207,6 +232,125 @@ public class GUI extends JFrame {
             GUI miProjectGUI = new GUI();
         });
     }
+
+    public void ejecutarAccion(int accion, String botonPresionado, String botonAplicar){
+
+        System.out.println("Estas realizando la siguiente acción " + accion + " el botón que tiene esta acción es " + botonPresionado + " y la carta que se aplicará es: " + botonAplicar);
+
+        switch (accion){
+            case 1:
+                //"Meeple"
+
+                break;
+            case 2:
+                //"Dragon"
+                break;
+            case 3:
+                //"Corazon"
+                break;
+            case 4:
+                //"Cohete"
+                if(botonPresionado == dado1.getName()){
+                    dadosActivos.remove(dado1);
+                    dadosUtilizados.add(dado1);
+                    dado1.setEnabled(false);
+                }else if(botonPresionado == dado2.getName()){
+                    dadosActivos.remove(dado2);
+                    dadosUtilizados.add(dado2);
+                    dado2.setEnabled(false);
+                }else if(botonPresionado == dado3.getName()){
+                    dadosActivos.remove(dado3);
+                    dadosUtilizados.add(dado3);
+                    dado3.setEnabled(false);
+                }else if(botonPresionado == dado4.getName()){
+                    dadosActivos.remove(dado4);
+                    dadosUtilizados.add(dado4);
+                    dado4.setEnabled(false);
+                }else if(botonPresionado == dado5.getName()){
+                    dadosActivos.remove(dado5);
+                    dadosUtilizados.add(dado5);
+                    dado5.setEnabled(false);
+                }else if(botonPresionado == dado6.getName()) {
+                    dadosActivos.remove(dado6);
+                    dadosUtilizados.add(dado6);
+                    dado6.setEnabled(false);
+                }else if(botonPresionado == dado7.getName()){
+                    dadosActivos.remove(dado7);
+                    dadosUtilizados.add(dado7);
+                    dado7.setEnabled(false);
+                }else if(botonPresionado == dado8.getName()){
+                    dadosActivos.remove(dado8);
+                    dadosUtilizados.add(dado8);
+                    dado8.setEnabled(false);
+                }else if (botonPresionado == dado9.getName()){
+                    dadosActivos.remove(dado9);
+                    dadosUtilizados.add(dado9);
+                    dado9.setEnabled(false);
+                }else if (botonPresionado == dado10.getName()){
+                    dadosActivos.remove(dado10);
+                    dadosUtilizados.add(dado10);
+                    dado10.setEnabled(false);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error del sistema, por favor comunicarse con el desarrollador");
+                }
+
+
+                if(botonAplicar == dado1.getName()){
+                    dadosActivos.remove(dado1);
+                    dadosInactivos.add(dado1);
+                    dado1.setEnabled(false);
+                }else if(botonAplicar == dado2.getName()){
+                    dadosActivos.remove(dado2);
+                    dadosInactivos.add(dado2);
+                    dado2.setEnabled(false);
+                }else if(botonAplicar == dado3.getName()){
+                    dadosActivos.remove(dado3);
+                    dadosInactivos.add(dado3);
+                    dado3.setEnabled(false);
+                }else if(botonAplicar == dado4.getName()){
+                    dadosActivos.remove(dado4);
+                    dadosInactivos.add(dado4);
+                    dado4.setEnabled(false);
+                }else if(botonAplicar == dado5.getName()){
+                    dadosActivos.remove(dado5);
+                    dadosInactivos.add(dado5);
+                    dado5.setEnabled(false);
+                }else if(botonAplicar == dado6.getName()) {
+                    dadosActivos.remove(dado6);
+                    dadosInactivos.add(dado6);
+                    dado6.setEnabled(false);
+                }else if(botonAplicar == dado7.getName()){
+                    dadosActivos.remove(dado7);
+                    dadosInactivos.add(dado7);
+                    dado7.setEnabled(false);
+                }else if(botonAplicar == dado8.getName()){
+                    dadosActivos.remove(dado8);
+                    dadosInactivos.add(dado8);
+                    dado8.setEnabled(false);
+                }else if (botonAplicar == dado9.getName()){
+                    dadosActivos.remove(dado9);
+                    dadosInactivos.add(dado9);
+                    dado9.setEnabled(false);
+                }else if (botonAplicar == dado10.getName()){
+                    dadosActivos.remove(dado10);
+                    dadosInactivos.add(dado10);
+                    dado10.setEnabled(false);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error del sistema, por favor comunicarse con el desarrollador");
+                }
+
+                break;
+            case 5:
+                //"Superheroe"
+                break;
+            case 6:
+                //"42"
+                break;
+            default:
+                break;
+        }
+    }
+
 
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
@@ -224,7 +368,166 @@ public class GUI extends JFrame {
             42 = 6.png
             */
 
+            if(e.getSource()==dado1){
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado1.getCara();
+                    System.out.println("Has puesto el botón uno como accionador");
+                    accionado = dado1.getName();
+                    dado1.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón uno como botón a accionar");
+                    cartaAplicar = dado1.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado1.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado2){
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado2.getCara();
+                    System.out.println("Has puesto el botón dos como accionador");
+                    accionado = dado2.getName();
+                    dado2.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón dos como botón a accionar");
+                    cartaAplicar = dado2.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado2.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado3){
+
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado3.getCara();
+                    System.out.println("Has puesto el botón tres como accionador");
+                    accionado = dado3.getName();
+                    dado3.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón tres como botón a accionar");
+                    cartaAplicar = dado3.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado3.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado4){
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado4.getCara();
+                    System.out.println("Has puesto el botón cuatro como accionador");
+                    accionado = dado4.getName();
+                    dado4.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón cuatro como botón a accionar");
+                    cartaAplicar = dado4.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado4.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado5){
+
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado5.getCara();
+                    System.out.println("Has puesto el botón cinco como accionador");
+                    accionado = dado5.getName();
+                    dado5.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón cinco como botón a accionar");
+                    cartaAplicar = dado5.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado5.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado6){
+
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado1.getCara();
+                    System.out.println("Has puesto el botón seis como accionador");
+                    accionado = dado6.getName();
+                    dado6.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón seis como botón a accionar");
+                    cartaAplicar = dado6.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado6.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado7){
+
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado7.getCara();
+                    System.out.println("Has puesto el botón siete como accionador");
+                    accionado = dado7.getName();
+                    dado7.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón siete como botón a accionar");
+                    cartaAplicar = dado7.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado7.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado8){
+
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado8.getCara();
+                    System.out.println("Has puesto el botón ocho como accionador");
+                    accionado = dado8.getName();
+                    dado8.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón ocho como botón a accionar");
+                    cartaAplicar = dado8.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado8.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado9){
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado9.getCara();
+                    System.out.println("Has puesto el botón nueve como accionador");
+                    accionado = dado9.getName();
+                    dado9.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón nueve como botón a accionar");
+                    cartaAplicar = dado9.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado9.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }else if(e.getSource()==dado10){
+
+                if(flag == 0){
+                    cara = modelGeekOutMaster.dado10.getCara();
+                    System.out.println("Has puesto el botón diez como accionador");
+                    accionado = dado10.getName();
+                    dado10.setBackground(Color.blue);
+                    flag = 1;
+                }else if(flag == 1){
+                    System.out.println("Has puesto el botón diez como botón a accionar");
+                    cartaAplicar = dado10.getName();
+                    System.out.println("accionador: " + accionado + " accionado: " + cartaAplicar);
+                    dado10.setBackground(ayuda.getBackground());
+                    ejecutarAccion(cara, accionado,cartaAplicar);
+                    flag = 0;
+                }
+            }
+
             if(e.getSource()==lanzar){
+
                 modelGeekOutMaster.calcularDados();
                 int[] caras = modelGeekOutMaster.getCaras();
                 imageDado = new ImageIcon(getClass().getResource("/resources/"+caras[0]+".png"));
@@ -256,13 +559,14 @@ public class GUI extends JFrame {
                     modelGeekOutMaster.estado=0;
                 }
 
-                revalidate();
-                repaint();
             }else if(e.getSource()==ayuda){
                 imageAyuda = new ImageIcon(getClass().getResource("/resources/hojaAyuda.png"));
                 JOptionPane.showMessageDialog(rootPane," ","Hoja de ayuda", JOptionPane.PLAIN_MESSAGE, imageAyuda);
-
             }
+
+            repaint();
+            revalidate();
+
         }
     }
 }

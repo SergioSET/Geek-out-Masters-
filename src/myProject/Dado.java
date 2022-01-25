@@ -1,6 +1,8 @@
 package myProject;
 
 import java.util.Random;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Class Dado generate a Random value between 1 and 6
@@ -16,9 +18,16 @@ public class Dado {
      *
      * @return number between (1,6)
      */
-    public int getCara() {
+    public int calculateCara() {
         Random aleatorio = new Random();
         cara = aleatorio.nextInt(6) + 1;
         return cara;
     }
+
+    public int getCara() {
+        return cara;
+    }
+    }
+
 }
+
