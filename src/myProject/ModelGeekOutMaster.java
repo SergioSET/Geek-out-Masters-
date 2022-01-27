@@ -1,14 +1,16 @@
 package myProject;
 
-import javax.sound.midi.SysexMessage;
 import javax.swing.*;
-import java.util.Random;
 
+/**
+ * Constructor
+ * */
 public class ModelGeekOutMaster {
     public Dado dado1, dado2, dado3, dado4, dado5, dado6, dado7, dado8, dado9, dado10;
     public int estado;
-    private int[] caras;
-    private GUI gui;
+    public int[] caras;
+
+    /** constructor*/
 
     public ModelGeekOutMaster(){
         dado1 = new Dado();
@@ -25,6 +27,8 @@ public class ModelGeekOutMaster {
         estado = 0;
     }
 
+    /** Calcula la cara de cada dado*/
+
     public void calcularDados(){
         caras[0] = dado1.calculateCara();
         caras[1] = dado2.calculateCara();
@@ -38,29 +42,34 @@ public class ModelGeekOutMaster {
         caras[9] = dado10.calculateCara();
     }
 
-    public void ejecutarAccion(int cara, JButton accionRealizar, JButton cartaAplicar){
-        gui = new GUI();
+    /** Ent*/
 
-        System.out.println("Estas realizando la siguiente acción" + cara + "el botón que tiene esta acción es" + accionRealizar.getName() + "y la carta que se aplicará es: " + cartaAplicar.getName());
-            gui.dadosActivos.remove(cartaAplicar);
-            gui.dadosInactivos.add(cartaAplicar);
-            gui.dadosActivos.remove(accionRealizar);
-            gui.dadosUtilizados.add(accionRealizar);
-
-    }
-
-
-    public void determinarJuego(){
-        if(estado == 0){
-
-        }else{
-
+    public int getCara(JButton dadoauxiliar){
+        if(dadoauxiliar.getName()=="dado1"){
+            return caras[0];
+        }else if(dadoauxiliar.getName()=="dado2"){
+            return caras[1];
+        }else if(dadoauxiliar.getName()=="dado3"){
+            return caras[2];
+        }else if(dadoauxiliar.getName()=="dado4"){
+            return caras[3];
+        }else if(dadoauxiliar.getName()=="dado5"){
+            return caras[4];
+        }else if(dadoauxiliar.getName()=="dado6"){
+            return caras[5];
+        }else if(dadoauxiliar.getName()=="dado7"){
+            return caras[6];
+        }else if(dadoauxiliar.getName()=="dado8"){
+            return caras[7];
+        }else if(dadoauxiliar.getName()=="dado9"){
+            return caras[8];
+        }else if(dadoauxiliar.getName()=="dado10"){
+            return caras[9];
         }
-
+        return 0;
     }
 
     public int[] getCaras() {
         return caras;
     }
-
 }
