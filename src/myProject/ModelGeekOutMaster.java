@@ -27,7 +27,11 @@ public class ModelGeekOutMaster {
         estado = 0;
     }
 
-    /** Calcula la cara de cada dado*/
+    /**
+     * Método que calcula la cara de todos los dados
+     *
+     * @return void
+     */
 
     public void calcularDados(){
         caras[0] = dado1.calculateCara();
@@ -42,7 +46,11 @@ public class ModelGeekOutMaster {
         caras[9] = dado10.calculateCara();
     }
 
-    /** Ent*/
+    /**
+     * Método que identifica que cara tiene un dado según su nombre
+     *
+     * @return int
+     */
 
     public int getCara(JButton dadoauxiliar){
         if(dadoauxiliar.getName()=="dado1"){
@@ -68,6 +76,12 @@ public class ModelGeekOutMaster {
         }
         return 0;
     }
+
+    /**
+     * Método que retorna el vector de los valores de las caras de los dados
+     *
+     * @return int[]
+     */
 
     public int[] getCaras() {
         return caras;
