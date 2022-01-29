@@ -630,12 +630,12 @@ public class GUIGridBagLayout extends JFrame {
 
         for(int i = 0;i<7;i++){
             if(vectorDadosInactivos[i]!=null){
-                System.out.println("inactivos: " + vectorDadosInactivos[i].getName());
+                //System.out.println("inactivos: " + vectorDadosInactivos[i].getName());
             }
         }
         for(int i = 0;i<7;i++){
             if(vectorDadosActivos[i]!=null){
-                System.out.println("activos: " + vectorDadosActivos[i].getName());
+                //System.out.println("activos: " + vectorDadosActivos[i].getName());
             }
         }
     }
